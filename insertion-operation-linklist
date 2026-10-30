@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node * next;
+
+    Node(int value) {
+        data = value;
+        next = NULL;
+    }
+};
+
+
+Node * insertAtStart(Node * head, int data) {
+    Node * newNode = new Node(data);
+    newNode -> next = head;
+    return newNode;
+}
+Node * insertAtEnd(Node * head, int x) {
+    Node * newNode = new Node(x);
+    if (head == nullptr) {
+        return head;
+    }
+    Node * last = head;
+    while (last -> next != nullptr) {
+        last = last -> next;
+    }
+    last -> next = newNode;
+    return head;
+}
+
+Node * insertAtPos(Node * head, int pos, int y) {
+    if (pos < 1)
+        return head;
+
+    if (pos == 1) {
+        Node * newNode = new Node(y);
+        newNode -> next = head;
+        return newNode;
+    }
+    
+    Node*curr=head;
+    for(int i=1;i<pos-1&& curr!=nullptr;i++){
+        curr=curr->next;
+    }
+    if(curr==nullptr)
+    return head;
+    
+    Node*newNode=new Node(y);
+    
+    newNode->next=curr->next;
+    curr->next=newNode;
+    return head;
+}
+
+int main() {
+    // your code goes here
+    Node * head = new Node(1);
+    head -> next = new Node(2);
+    head -> next -> next = new Node(3);
+    head -> next -> next -> next = new Node(4);
+
+    int data = 7;
+    head = insertAtStart(head, data);
+
+    int x = 9;
+    head = insertAtEnd(head, x);
+    
+    int y=10;
+    head=insertAtPos(head,3,y);
+
+
+
+    Node * temp = head;
+    while (temp != nullptr) {
+        cout << temp -> data << " ";
+        temp = temp -> next;
+    }
+
+
+    return 0;
+
+}
